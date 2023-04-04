@@ -111,6 +111,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
     print(f"client_origin_dev: {client_origin_dev}")
     extracted_url = urlparse(client_origin_dev).hostname
     subdomain = extracted_url.split('.')[0]
+    print("CORS regex: " + rf'https://{subdomain}\.codeanyapp\.com$')
     CORS_ALLOWED_ORIGIN_REGEXES = [
         rf"https://{subdomain}\.codeanyapp\.com$",
     ]

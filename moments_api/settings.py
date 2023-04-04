@@ -106,15 +106,16 @@ if 'CLIENT_ORIGIN' in os.environ:
         os.environ.get('CLIENT_ORIGIN')
     ]
 
+CORS_ALLOWED_ORIGIN_REGEXES = []
+
 if 'CLIENT_ORIGIN_DEV' in os.environ:
-    client_origin_dev = os.environ.get('CLIENT_ORIGIN_DEV', '')
-    print(f"client_origin_dev: {client_origin_dev}")
-    extracted_url = urlparse(client_origin_dev).hostname
-    subdomain = extracted_url.split('.')[0]
-    print("CORS regex: " + rf'https://{subdomain}\.codeanyapp\.com$')
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"https://{subdomain}\.codeanyapp\.com$",
-    ]
+    extracted_url = re.match(
+        r'^https?://.*\.codeanyapp\.com', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
+    )
+    if extracted_url:
+        CORS_ALLOWED_ORIGIN_REGEXES.append(extracted_url.group(0))
+
+CORS_ALLOWED_ORIGIN_REGEXES.append(r'^https?://.*\.codeanyapp\.com$')
 
 CORS_ALLOW_CREDENTIALS = True
 

@@ -108,6 +108,7 @@ if 'CLIENT_ORIGIN' in os.environ:
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    print(f"extracted_url: {extracted_url}")
     CORS_ALLOWED_ORIGIN_REGEXES = [
         rf"{extracted_url}\w+\.codeanyapp\.com$",
     ]

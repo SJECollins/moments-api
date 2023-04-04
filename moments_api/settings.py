@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
-import re
+from urllib.parse import urlparse
 import dj_database_url
 from pathlib import Path
 if os.path.exists('env.py'):
@@ -109,10 +109,10 @@ if 'CLIENT_ORIGIN' in os.environ:
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     client_origin_dev = os.environ.get('CLIENT_ORIGIN_DEV', '')
     print(f"client_origin_dev: {client_origin_dev}")
-    extracted_url = re.match(r'^.+?-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
-    print(f"extracted_url: {extracted_url}")
+    extracted_url = urlparse(client_origin_dev).hostname
+    subdomain = extracted_url.split('.')[0]
     CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"{extracted_url}\w+\.codeanyapp\.com$",
+        rf"https://{subdomain}\.codeanyapp\.com$",
     ]
 
 CORS_ALLOW_CREDENTIALS = True

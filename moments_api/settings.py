@@ -118,10 +118,10 @@ CORS_ALLOWED_ORIGIN_REGEXES = []
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = os.environ.get('CLIENT_ORIGIN_DEV', '')
-    if re.match(r'^https?://.*\.(codeanyapp\.com|gitpod\.io)$', extracted_url, re.IGNORECASE):
+    if re.match(r'^https?://.*\.(codeanyapp\.com|gitpod\.io|preview\.app\.github\.dev)$', extracted_url, re.IGNORECASE):
         CORS_ALLOWED_ORIGIN_REGEXES.append(extracted_url)
 
-CORS_ALLOWED_ORIGIN_REGEXES.append(r'^https?://.*\.(codeanyapp\.com|gitpod\.io)$')
+CORS_ALLOWED_ORIGIN_REGEXES.append(r'^https?://.*\.(codeanyapp\.com|gitpod\.io|preview\.app\.github\.dev)$')
 
 
 CORS_ALLOW_CREDENTIALS = True
